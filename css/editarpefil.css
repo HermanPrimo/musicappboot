@@ -1,0 +1,49 @@
+body {
+   /* background-color: #f8f9fa;*/
+   background-color: #f8f9fa;
+  }
+  
+  .editar {
+    background-color: #D9D9D9;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .form-label {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .form-control,
+  .form-select {
+    border-radius: 10px;
+    background-color: #e9ecef;
+  }
+  
+  .btn-primary {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+  }
+  
+  .btn-primary:hover {
+    background-color: #5a32a8;
+    border-color: #5a32a8;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+  }
+  
+  .form-check-label {
+    font-size: 0.9rem;
+  }
+  

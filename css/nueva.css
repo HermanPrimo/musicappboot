@@ -1,0 +1,41 @@
+
+.custom-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #b0b0b0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.btn-purple {
+  background-color: #8000ff;
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: #6600cc;
+}
+
+.form-control-icon {
+  position: relative;
+}
+
+.form-control-icon input {
+  padding-right: 2.5rem;
+}
+
+.form-control-icon .icon-right {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

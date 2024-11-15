@@ -1,0 +1,39 @@
+
+/* Custom styles for the verification code form */
+.verification-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #D9D9D9;
+}
+.verification-box {
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: #b0b0b0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+}
+.btn-purple {
+    background-color: #8000ff;
+    color: white;
+}
+.btn-purple:hover {
+    background-color: #6600cc;
+}
+.code-input {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+}

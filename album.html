@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+
+  <style>
+    /* Colores de fondo y texto */
+    .bg-purple {
+      background-color: #6f42c1;
+    }
+  
+    .bg-gray-100 {
+      background-color: #f8f9fa;
+    }
+  
+    .text-gray-700 {
+      color: #6c757d;
+    }
+  
+    .text-gray-500 {
+      color: #adb5bd;
+    }
+  
+    .rounded-full {
+      border-radius: 50%;
+    }
+  
+    /* Estilo responsivo para el menú lateral */
+    .side-static {
+      min-width: 200px;
+    }
+  
+    @media (max-width: 768px) {
+      .side-static {
+        display: none; /* Ocultar menú lateral en pantallas pequeñas */
+      }
+  
+      .content-area {
+        padding: 10px;
+      }
+  
+      .search-bar {
+        flex-basis: 100%;
+        margin-bottom: 15px;
+      }
+  
+      .search-results .col-6 {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
+  
+    /* Ajustes para el reproductor y la lista en pantallas pequeñas */
+    @media (max-width: 576px) {
+      .content-area {
+        padding: 5px;
+      }
+  
+      .search-results .col-lg-6,
+      .search-results .col-md-6 {
+        max-width: 100%;
+        flex-basis: 100%;
+      }
+  
+      .input-group-text,
+      .material-icons {
+        font-size: 20px;
+      }
+  
+      .search-bar {
+        width: 100%;
+      }
+  
+      .player img {
+        width: 60px;
+        height: 60px;
+      }
+  
+      .progress {
+        height: 5px;
+      }
+  
+      .list-group-item {
+        font-size: 14px;
+        padding: 10px;
+      }
+  
+      .artist-image {
+        width: 50px;
+        height: 50px;
+      }
+  
+      .artist-name {
+        font-size: 14px;
+      }
+    }
+  
+    /* Ajustes para dispositivos medianos */
+    @media (min-width: 768px) and (max-width: 992px) {
+      .artist-item {
+        max-width: 50%;
+        flex: 1 1 50%;
+      }
+  
+      .artist-image {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  
+    /* Ajustes para dispositivos grandes */
+    @media (min-width: 992px) {
+      .content-area {
+        padding: 20px;
+      }
+  
+      .artist-image {
+        width: 70px;
+        height: 70px;
+      }
+  
+      .player img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+  
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark side-static">
+        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+          <a href="./index.html" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-dark text-decoration-none logo">
+            <img src="./img/logo.png" class="img-fluid" width="40px">
+          </a>
+          <a href="./index.html"
+            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-dark text-decoration-none margin-menu">
+            <span class="fs-5 d-none d-sm-inline">Menú</span>
+          </a>
+          <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+            <li class="nav-item">
+              <a href="./perfil.html" class="nav-link align-middle px-0 margin-op">
+                <i class="fas fa-user"></i> <span class="ms-1 d-none d-sm-inline">Perfil</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="./libreria.html" class="nav-link align-middle px-0">
+                <i class="fas fa-book"></i> <span class="ms-1 d-none d-sm-inline">Librería</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link align-middle px-0">
+                <i class="fas fa-music"></i> <span class="ms-1 d-none d-sm-inline">Playlist</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link align-middle px-0">
+                <i class="fas fa-history"></i> <span class="ms-1 d-none d-sm-inline">Historial</span>
+              </a>
+            </li>
+          </ul>
+          <hr>
+
+        </div>
+      </div>
+      <div class="col py-3 content-area side">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+          <div class="input-group mb-3 search-bar">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input id="search-input" class="form-control" type="search" placeholder="Búsqueda" aria-label="Búsqueda">
+          </div>
+
+          <!-- Contenido que estará oculto inicialmente -->
+          <div id="search-results" class="row justify-content-center search-results hidden">
+            <div class="col-11">
+              <div class="row">
+                <!-- Resultados section (left column) -->
+                <div class="col-lg-6 col-md-6 col-12">
+                  <h3>Resultados</h3>
+
+                  <div class="result-item">
+                    <div class="row">
+                      <div class="col-6" style="align-content: center;">
+                        <img src="./img/lanzamientos/alv.jpeg" alt="Angels like you" class="song-image">
+                      </div>
+                      <div class="col-6">
+                        <p class="song-title">ALV</p>
+                        <p class="artist-name-result">Arcangel</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="result-item">
+                    <div class="row">
+                      <div class="col-6" style="align-content: center;">
+                        <img src="./img/lanzamientos/amor.jpeg" alt="Angels like you" class="song-image">
+                      </div>
+                      <div class="col-6">
+                        <p class="song-title">Amor</p>
+                        <p class="artist-name-result">Danny Ocean</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="result-item">
+                    <div class="row">
+                      <div class="col-6" style="align-content: center;">
+                        <img src="./img/lanzamientos/dios.jpeg" alt="Angels like you" class="song-image">
+                      </div>
+                      <div class="col-6">
+                        <p class="song-title">Dios te cuide</p>
+                        <p class="artist-name-result">Manuel Turizo</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="result-item">
+                    <div class="row">
+                      <div class="col-6" style="align-content: center;">
+                        <img src="./img/lanzamientos/llore.jpeg" alt="Angels like you" class="song-image">
+                      </div>
+                      <div class="col-6">
+                        <p class="song-title">Lloré</p>
+                        <p class="artist-name-result">Thalia</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="result-item">
+                    <div class="row">
+                      <div class="col-6" style="align-content: center;">
+                        <img src="./img/lanzamientos/nueva.jpeg" alt="Angels like you" class="song-image">
+                      </div>
+                      <div class="col-6">
+                        <p class="song-title">Nueva Vida</p>
+                        <p class="artist-name-result">Peso Pluma</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="result-item">
+                    <div class="row">
+                      <div class="col-6" style="align-content: center;">
+                        <img src="./img/lanzamientos/alv.jpeg" alt="Angels like you" class="song-image">
+                      </div>
+                      <div class="col-6">
+                        <p class="song-title">Ya pedo quien sabe</p>
+                        <p class="artist-name-result">Grupo Frontera</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Repetir para más resultados -->
+                </div>
+
+                <!-- Artistas section (right column) -->
+                <div class="col-lg-6 col-md-6 col-12 artists-section">
+                  <h3>Artistas</h3>
+                  <div class="row artist-row">
+                    <div class="col-6 artist-item">
+                      <img src="./img/artistas/billie.jpeg" class="rounded-circle artist-image" alt="Kanye West">
+                      <p class="artist-name">Billie Eilish</p>
+                    </div>
+                    <div class="col-6 artist-item">
+                      <img src="./img/artistas/kanye.jpeg" class="rounded-circle artist-image" alt="Kanye West">
+                      <p class="artist-name">Kanye West</p>
+                    </div>
+                    <div class="col-6 artist-item">
+                      <img src="./img/artistas/bruno.jpeg" class="rounded-circle artist-image" alt="Kanye West">
+                      <p class="artist-name">Bruno Mars</p>
+                    </div>
+                    <div class="col-6 artist-item">
+                      <img src="./img/artistas/katy.jpeg" class="rounded-circle artist-image" alt="Kanye West">
+                      <p class="artist-name">Katy Perry</p>
+                    </div>
+                    <div class="col-6 artist-item">
+                      <img src="./img/artistas/lenny.jpeg" class="rounded-circle artist-image" alt="Kanye West">
+                      <p class="artist-name">Lenny Kravitz</p>
+                    </div>
+                    <div class="col-6 artist-item">
+                      <img src="./img/artistas/charlie.jpeg" class="rounded-circle artist-image" alt="Kanye West">
+                      <p class="artist-name">Charlie Puth</p>
+                    </div>
+                    <!-- Add more artists as needed -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <script src="./js/search.js"></script>
+        </div>
+
+        <!-- Player -->
+        <div class="d-flex align-items-center p-4 mb-3 bg-white rounded shadow-sm">
+          <img src="./img/albumes/album.jpeg" alt="Album Cover" class="img-thumbnail rounded me-3"
+            style="width: 80px; height: 80px;">
+          <div class="flex-grow-1">
+            <h5 class="mb-1">Circles</h5>
+            <p class="text-gray-500">Post Malone</p>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-purple" role="progressbar" style="width: 50%;"></div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <span class="material-icons text-gray-600 me-2">skip_previous</span>
+            <span class="material-icons text-purple">play_arrow</span>
+            <span class="material-icons text-gray-600 ms-2">skip_next</span>
+          </div>
+          <div class="d-flex align-items-center ms-3">
+            <span class="material-icons text-gray-600 me-2">shuffle</span>
+            <span class="material-icons text-gray-600 me-2">remove_circle_outline</span>
+            <span class="material-icons text-gray-600">add_circle_outline</span>
+          </div>
+        </div>
+
+        <!-- Playlist -->
+        <div class="bg-white rounded shadow-sm">
+          <div class="p-3 border-bottom">
+            <h6 class="mb-0">Lista de reproducción</h6>
+          </div>
+          <div class="list-group list-group-flush">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <p class="mb-0">Hollywood's Bleeding</p>
+                <small class="text-gray-500">Cancion - Post Malone</small>
+              </div>
+              <span class="material-icons text-gray-500">play_arrow</span>
+            </div>
+            <!-- Repeat this div for other songs -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Album Info -->
+      <div class="col-12 col-md-3 col-lg-2 p-4">
+        <div class="bg-white rounded shadow-sm p-3 text-center">
+          <img src="./img/albumes/album.jpeg" alt="Album Cover" class="img-fluid rounded mb-3">
+          <h6 class="mb-0">Hollywood's Bleeding</h6>
+          <small class="text-gray-500">Post Malone</small><br>
+          <small class="text-gray-500">Álbum - 2019</small>
+          <button class="btn btn-outline-secondary w-100 mt-3">Reproducir todo</button>
+          <div class="d-flex justify-content-around mt-3">
+            <span class="material-icons text-gray-500">shuffle</span>
+            <span class="material-icons text-gray-500">share</span>
+            <span class="material-icons text-gray-500">more_vert</span>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

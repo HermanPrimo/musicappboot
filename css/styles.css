@@ -1,0 +1,435 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .editar {
+    background-color: #D9D9D9;
+  }
+
+  .btn-primary:hover {
+    background-color: #5a32a8;
+    border-color: #5a32a8;
+  }
+ /* Estructura del sidebar */
+.side-static {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Ancho del sidebar */
+  height: 100%; /* Sidebar ocupa toda la altura */
+  background-color: #333; /* Color del sidebar */
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1001; /* Mayor que el de la barra de búsqueda */
+}
+
+/* Ajuste del área de contenido */
+.content-area {
+  margin-left: 250px; /* Deja suficiente espacio para el sidebar */
+  padding: 20px;
+  margin-top: 30px;
+  background-color: #f3f3f3;
+  min-height: 100vh; /* Asegura que el contenido cubra toda la pantalla */
+  box-sizing: border-box;
+}
+
+.search-results {
+  z-index: 1000; /* asegurarte de que esté por encima de otros elementos */
+  position: absolute; /* o fixed si deseas que se mantenga en la misma posición al hacer scroll */
+  top: 50px; /* ajusta según sea necesario para colocar el elemento en la posición deseada */
+  left: 20%; /* ajusta según sea necesario */
+  right: 1%; /* ajusta según sea necesario */
+  background-color: white; /* opcional */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* opcional */
+}
+
+/* Barra de búsqueda */
+.search-bar {
+  position: fixed; /* Barra fija en la parte superior */
+  top: 0;
+  left: 250px; /* Empieza después del sidebar */
+  width: calc(100% - 250px); /* Ancho restante del contenido */
+  z-index: 1000; /* Asegura que no sobrepase al sidebar */
+  background-color: #fff; /* Fondo blanco */
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+  box-sizing: border-box;
+}
+
+/* Responsivo para pantallas menores de 768px */
+@media (max-width: 768px) {
+  .side-static {
+    width: 100px; /* Sidebar más pequeño en pantallas pequeñas */
+  }
+
+  .content-area {
+    margin-left: 100px; /* Ajusta margen para pantallas pequeñas */
+  }
+
+  .search-bar {
+    left: 100px; /* Ajusta el inicio de la barra de búsqueda */
+    width: calc(100% - 100px); /* Ajusta el ancho de la barra de búsqueda */
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* Estilos para la sección de resultados */
+.result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  width: auto;
+}
+
+
+
+
+.song-image {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+
+
+.results-section {
+  padding-right: 200px;
+}
+
+.result-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 200px;
+}
+
+.artist-name-result {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Sección de artistas */
+.artist-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.artist-item {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.artist-image {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 10px;
+}
+
+.artist-name {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Ajustes para pantallas medianas */
+@media (max-width: 992px) {
+  .results-section {
+    padding-right: 100px;
+  }
+
+  .song-title {
+    font-size: 1rem;
+  }
+
+  .artist-image {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Ajustes para pantallas pequeñas (tabletas y móviles) */
+@media (max-width: 768px) {
+  .results-section {
+    padding-right: 0;
+  }
+
+  .result-item {
+    padding: 5px;
+  }
+
+  .song-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 8px;
+  }
+
+  .artist-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .artist-item {
+    width: 50%;
+  }
+
+  .artist-name {
+    font-size: 0.9rem;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (móviles) */
+@media (max-width: 576px) {
+  .result-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .song-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 0;
+  }
+
+  .artist-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .artist-name {
+    font-size: 0.8rem;
+  }
+}
+
+
+
+  .header-icon {
+    font-size: 1.5rem;
+    margin-top: 50px;
+    float: right;
+  }
+
+  .profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px; /* Ajusta el tamaño según sea necesario */
+    height: 60px; /* Ajusta el tamaño según sea necesario */
+    border-radius: 50%;
+    background-color: #e0e0e0; /* Fondo gris claro para el icono */
+  }
+
+  .bg-light {
+      background-color: #e0e0e0!important; /* Color de fondo ligero para el contenedor */
+  }
+
+
+  
+  .album-text, .genre-text, .release-text, .artist-name-lanzamiento {
+    text-align: left;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .album-text, .genre-text {
+    font-weight: bold;
+  }
+  
+  .artist-name {
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .artist-name-lanzamiento {
+    color: #555;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+    border: none;
+    background-color: transparent;
+  }
+  
+  img {
+    border-radius: 15px;
+  }
+  
+  input[type="search"] {
+    width: 100%;
+  }
+  
+  .bg-dark {
+    background-color: white !important;
+  }
+  
+  .nav-link {
+    color: #000000;
+  }
+  
+  .nav-link.active, .nav-link:focus {
+    color: #9359F1 !important; /* Cambia el color a morado cuando está activo */
+  }
+
+  .nav-link:hover {
+    color: #9359F1;
+  }
+  
+  .min-vh-100 {
+    min-height: 100vh;
+  }
+  
+
+  .logo {
+    margin-top: -10px;
+    margin-right: 10px; /* Ajusta según sea necesario para una buena separación */
+    height: 40px; /* Asegúrate de ajustar el tamaño del logo si es necesario */
+  }
+
+
+  .margin-menu {
+    margin-top: 29px;
+  }
+
+  .margin-op {
+    margin-top: -14px;
+  }
+
+  /*Texto imagenes*/
+  .album-item {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .album-image img {
+    width: 100%;
+    height: auto;
+    display: block; 
+  }
+  
+  .album-text {
+    position: absolute;
+    bottom: 0;  /* Pegado a la parte inferior */
+    left: 0;
+    right: 0;
+    padding: 10px;  /* Sin espacio adicional */
+    margin: 0;
+    color: white;  /* Texto en blanco */
+    text-align: left;
+    font-size: 1rem; /* Ajusta el tamaño de la fuente si es necesario */
+    font-weight: bold;
+  }
+  
+  .album-text h3, .album-text p {
+    margin: 5px 0; /* Un pequeño margen para el texto */
+  }
+  
+  /*Genros*/
+
+  /* Estilos para Géneros Populares */
+.genero-popular {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .genero-popular .image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .text-overlay-genero {
+    position: absolute;
+    bottom: 0;  /* Pegado a la parte inferior */
+    left: 0;
+    right: 0;
+    padding: 10px;  /* Sin espacio adicional */
+    margin: 0;
+    color: white;  /* Texto en blanco */
+    text-align: left;
+    font-size: 1rem; /* Ajusta el tamaño de la fuente si es necesario */
+    font-weight: bold;
+
+  }
+  
+  .text-overlay-genero h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  /* Ajustes para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .text-overlay-genero h3 {
+      font-size: 0.9rem;
+    }
+  }
+
+ /* Estilos para Lanzamientos Recientes */
+.lanzamiento-reciente {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.lanzamiento-reciente .image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.text-overlay-lanzamiento {
+  position: absolute;
+  bottom: 0; /* Pegado a la parte inferior */
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6); /* Fondo semitransparente para mejor visibilidad */
+  padding: 5px; /* Pequeño padding para el texto */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Alinea el contenido hacia abajo */
+  color: white;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.text-overlay-lanzamiento .album-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.text-overlay-lanzamiento .artist-name-lanzamiento {
+  font-size: 0.8rem;
+  color: #ddd;
+  margin: 0; /* Sin margen */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .text-overlay-lanzamiento .album-name {
+    font-size: 0.9rem;
+  }
+
+  .text-overlay-lanzamiento .artist-name-lanzamiento {
+    font-size: 0.7rem;
+  }
+}
